@@ -20,12 +20,15 @@ class SentimentResponse(BaseModel):
 def detect_sentiment(sentence: str) -> str:
     sentence = sentence.lower()
 
-    happy_words = ["love", "great", "awesome", "good", "amazing", "happy", "excellent"]
-    sad_words = ["terrible", "bad", "sad", "hate", "awful", "worst"]
+    positive_words = ["love","great","awesome","good","happy","amazing",
+    "fantastic","nice","excellent","wonderful","best"]
 
-    if any(word in sentence for word in happy_words):
+    negative_words = ["bad","terrible","sad","hate","awful",
+    "worst","horrible","poor","disappointing"]
+
+    if any(word in sentence for word in positive_words):
         return "happy"
-    elif any(word in sentence for word in sad_words):
+    elif any(word in sentence for word in negative_words):
         return "sad"
     else:
         return "neutral"
@@ -43,5 +46,6 @@ def sentiment_analysis(data: SentencesInput):
             "sentence": sentence,
             "sentiment": sentiment
         })
+
 
     return {"results": results}
